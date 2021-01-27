@@ -16,7 +16,7 @@
       DatePicker
     },
     data () {
-      return { day: '27'};
+      return { day: null};
     },
     methods: {
       changeDay (newDay) {
