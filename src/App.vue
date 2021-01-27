@@ -4,6 +4,16 @@
     <hr/>
     <template v-if="isDay">
       <p>{{day}}e</p>
+      <select v-model="typeWork">
+        <option 
+          v-for="type in typeWorks"
+          :disabled="type.value === ''"
+          :value="type.value"
+          :key="type.value"
+        >
+          {{type.text}}
+        </option>
+      </select>
       <button @click="saveChanges">Сохранить</button>
     </template>
     <p v-else>Выберите день в календаре</p>
@@ -19,14 +29,22 @@
       DatePicker
     },
     data () {
-      return { day: null};
+      return { 
+        day: null,
+        typeWork: '',
+        typeWorks: [
+          { text: 'Вид работы', value: '' },
+          { text: 'Важная', value: 'important' },
+          { text: 'Обычная', value: 'routine' },
+        ]
+      };
     },
     methods: {
       changeDay (newDay) {
         this.day = newDay;
       },
       saveChanges () {
-        
+
       }
     },
     computed: {
@@ -38,4 +56,7 @@
 </script>
 
 <style lang="scss">
+  button {
+    margin-left: 10px;
+  }
 </style>
