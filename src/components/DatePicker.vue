@@ -4,7 +4,7 @@
     @input="$emit('change-day', $event)" 
     class="datepicker"
     value-type="format" 
-    format="DD" 
+    format="D" 
     inline
     open
   />

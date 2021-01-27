@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <DatePicker :day="day" @change-day="changeDay" />
+    <hr/>
+    <p v-if="isDay">{{day}}e</p>
+    <p v-else>Выберите день в календаре</p>
   </div>
 </template>
 
@@ -18,6 +21,11 @@
     methods: {
       changeDay (newDay) {
         this.day = newDay;
+      }
+    },
+    computed: {
+      isDay: function() {
+        return this.day !== null;
       }
     }
   };
