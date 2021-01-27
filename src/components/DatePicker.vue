@@ -1,6 +1,7 @@
 <template>
   <DatePicker 
-    v-model="day" 
+    :value="day"
+    @input="$emit('change-day', $event)" 
     class="datepicker"
     value-type="format" 
     format="DD" 
@@ -16,10 +17,7 @@
 
 export default {
   components: { DatePicker },
-  props: {},
-  data () {
-    return { day: null };
-  }
+  props: ['day']
 };
 </script>
 
