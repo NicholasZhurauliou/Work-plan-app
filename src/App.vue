@@ -11,7 +11,7 @@
           :value="`${i - 1}`"
           :key="i"
         >
-          {{i}}
+          {{changeNumberToTimeStr(i)}}
         </option>
       </select>
       <select v-model="endPeriod">
@@ -21,7 +21,7 @@
           :value="`${i - 1}`"
           :key="i"
         >
-          {{i}}
+          {{changeNumberToTimeStr(i)}}
         </option>
       </select>
       <select v-model="typeWork">
@@ -64,6 +64,10 @@
     methods: {
       changeDay (newDay) {
         this.day = newDay;
+      },
+      changeNumberToTimeStr (value) {
+        value -= 1;
+        return `${value < 10 ? '0' : ''}${value}:00`;
       },
       saveChanges () {
 
