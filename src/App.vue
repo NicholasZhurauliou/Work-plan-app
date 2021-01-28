@@ -111,7 +111,7 @@
       },
 
       getClass (idx, type) {
-        if (this.day && (this.day in this.days)) {
+        if (this.day) {
           let key = this.getKey(type);
           return this.days[this.day][idx - 1][key];
         }
