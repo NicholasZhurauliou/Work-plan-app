@@ -1,5 +1,5 @@
 <template>
-  <DatePicker 
+  <date-picker 
     :value="day"
     @input="$emit('change-day', $event)" 
     class="datepicker"
@@ -7,7 +7,7 @@
     format="D" 
     inline
     open
-  />
+  ></date-picker>
 </template>
 
 <script>

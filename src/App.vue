@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="app">
     <div class="app__container">
-      <DatePicker :day="day" @change-day="changeDay" />
+      <date-picker :day="day" @change-day="changeDay"></date-picker>
       <div class="time-periods">
         <div class="time-periods__header">
           <div v-for="i in (HOURS_IN_DAY + 1)" :key="i">
@@ -68,6 +68,7 @@
 <script>
   import DatePicker from "./components/DatePicker.vue";
   import {HOURS_IN_DAY, getLastDayInCurrentMonth, changeNumberToTimeStr} from "./constants.js";
+  import "./App.scss";
 
   export default {
     name: "App",
@@ -148,41 +149,4 @@
   };
 </script>
 
-<style lang="scss">
-  .app {
-    &__container {
-      display: flex;
-    }
-    .time-periods {
-      margin-left: 50px;
-      &__header {
-        display: flex;
-        position: relative;
-        left: -10px;
-         div {
-           flex: 0 0 20px;
-            span {
-              writing-mode: vertical-rl;
-              transform: rotate(-180deg);
-            }
-         }
-      }
-      &__body-routine, &__body-important {
-        display: flex;
-          div {
-            flex: 0 0 20px;
-            height: 20px;
-          }
-      }
-      .important {
-        background-color: red;
-      }
-      .routine {
-        background-color: blue;
-      }
-    }
-    select {
-      margin-right: 20px;
-    }
-  }
-</style>
+<style lang="scss"></style>
