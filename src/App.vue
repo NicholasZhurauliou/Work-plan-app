@@ -4,22 +4,22 @@
       <DatePicker :day="day" @change-day="changeDay" />
       <div class="time-periods">
         <div class="time-periods__header">
-          <div v-for="i in (getHoursInDay() + 1)" :key="i">
+          <div v-for="i in (HOURS_IN_DAY + 1)" :key="i">
             <span>
-              {{changeNumberToTimeStr(i)}}
+              {{changeNumberToTimeStr(i - 1)}}
             </span>
           </div>
         </div>
         <div class="time-periods__body-routine">
           <div 
-            v-for="i in getHoursInDay()"
+            v-for="i in HOURS_IN_DAY"
             :key="i"
             :class="{routine: getClass(i, '1')}"
           ></div>
         </div>
         <div class="time-periods__body-important">
           <div 
-            v-for="i in getHoursInDay()"
+            v-for="i in HOURS_IN_DAY"
             :key="i"
             :class="{important: getClass(i, '0')}"
           ></div>
@@ -32,21 +32,21 @@
       <select v-model="startPeriod">
         <option value="" disabled key="0">Начало работы</option>
         <option 
-          v-for="i in (getHoursInDay() + 1)" 
+          v-for="i in (HOURS_IN_DAY + 1)" 
           :value="`${i - 1}`"
           :key="i"
         >
-          {{changeNumberToTimeStr(i)}}
+          {{changeNumberToTimeStr(i - 1)}}
         </option>
       </select>
       <select v-model="endPeriod">
         <option value="" disabled key="0">Кoнец работы</option>
         <option 
-          v-for="i in (getHoursInDay() + 1)" 
+          v-for="i in (HOURS_IN_DAY + 1)" 
           :value="`${i - 1}`"
           :key="i"
         >
-          {{changeNumberToTimeStr(i)}}
+          {{changeNumberToTimeStr(i - 1)}}
         </option>
       </select>
       <select v-model="typeWork">
@@ -67,12 +67,20 @@
 
 <script>
   import DatePicker from "./components/DatePicker.vue";
+  import {HOURS_IN_DAY, getLastDayInCurrentMonth, changeNumberToTimeStr} from "./constants.js";
 
   export default {
     name: "App",
     components: {
       DatePicker
     },
+
+    beforeCreate () {
+      this.HOURS_IN_DAY = HOURS_IN_DAY;
+      this.getLastDayInCurrentMonth = getLastDayInCurrentMonth;
+      this.changeNumberToTimeStr = changeNumberToTimeStr;
+    },
+
     data () {
       return { 
         day: null,
@@ -87,14 +95,14 @@
         ]
       };
     },
+
     methods: {
       initDays () {
         let result = {};
         let lastDay = this.getLastDayInCurrentMonth();
-        let hoursInDay = this.getHoursInDay();
 
         for (let i = 1; i <= lastDay; i++) {
-          let periods = [...new Array(hoursInDay)].map(() => ({isImportant: false, isRoutine: false}));
+          let periods = [...new Array(HOURS_IN_DAY)].map(() => ({isImportant: false, isRoutine: false}));
           result[`${i}`] = periods;
         }
 
@@ -105,11 +113,6 @@
         this.day = newDay;
       },
 
-      changeNumberToTimeStr (value) {
-        value -= 1;
-        return `${value < 10 ? '0' : ''}${value}:00`;
-      },
-
       getClass (idx, type) {
         if (this.day) {
           let key = this.getKey(type);
@@ -118,21 +121,8 @@
         return false;
       },
 
-      getHoursInDay () {
-        const HOURS_IN_DAY = 24;
-        return HOURS_IN_DAY;
-      },
-
       getKey (type) {
         return (type === '0') ? 'isImportant' : 'isRoutine';
-      },
-
-      getLastDayInCurrentMonth () {
-        let now = new Date();
-        let month = now.getMonth();
-        let year = now.getFullYear();
-      
-        return new Date(year, month + 1, 0).getDate();
       },
 
       saveChanges () {
