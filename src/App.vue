@@ -88,21 +88,27 @@
       };
     },
     methods: {
-      initDays() {
+      initDays () {
         let result = {};
-        for (let i = 1; i <= 31; i++) {
+        let lastDay = this.getLastDayInCurrentMonth();
+
+        for (let i = 1; i <= lastDay; i++) {
           let periods = [...new Array(24)].map(() => ({isImportant: false, isRoutine: false}));
           result[`${i}`] = periods;
         }
+
         return result;
       },
+
       changeDay (newDay) {
         this.day = newDay;
       },
+
       changeNumberToTimeStr (value) {
         value -= 1;
         return `${value < 10 ? '0' : ''}${value}:00`;
       },
+
       getClass (idx, type) {
         if (this.day && (this.day in this.days)) {
           let key = this.getKey(type);
@@ -110,11 +116,22 @@
         }
         return false;
       },
+
       getKey (type) {
         return (type === '0') ? 'isImportant' : 'isRoutine';
       },
+
+      getLastDayInCurrentMonth () {
+        let now = new Date();
+        let month = now.getMonth();
+        let year = now.getFullYear();
+      
+        return new Date(year, month + 1, 0).getDate();
+      },
+
       saveChanges () {
         let isSelected = !!(this.startPeriod && this.endPeriod && this.typeWork);
+        
         if (isSelected && (+this.startPeriod < +this.endPeriod)) {
           this.days[this.day].forEach((period, idx) => {
             if ((idx >= this.startPeriod) && (idx < this.endPeriod)) {
@@ -123,9 +140,9 @@
           });
           this.typeWork = this.startPeriod = this.endPeriod = '';
         }
-
       }
     },
+
     computed: {
       isDay: function () {
         return this.day !== null;
