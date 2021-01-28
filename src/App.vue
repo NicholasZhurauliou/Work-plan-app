@@ -4,7 +4,7 @@
       <DatePicker :day="day" @change-day="changeDay" />
       <div class="time-periods">
         <div class="time-periods__header">
-          <div v-for="i in 25" :key="i">
+          <div v-for="i in (getHoursInDay() + 1)" :key="i">
             <span>
               {{changeNumberToTimeStr(i)}}
             </span>
@@ -12,14 +12,14 @@
         </div>
         <div class="time-periods__body-routine">
           <div 
-            v-for="i in 24"
+            v-for="i in getHoursInDay()"
             :key="i"
             :class="{routine: getClass(i, '1')}"
           ></div>
         </div>
         <div class="time-periods__body-important">
           <div 
-            v-for="i in 24"
+            v-for="i in getHoursInDay()"
             :key="i"
             :class="{important: getClass(i, '0')}"
           ></div>
@@ -32,7 +32,7 @@
       <select v-model="startPeriod">
         <option value="" disabled key="0">Начало работы</option>
         <option 
-          v-for="i in 25" 
+          v-for="i in (getHoursInDay() + 1)" 
           :value="`${i - 1}`"
           :key="i"
         >
@@ -42,7 +42,7 @@
       <select v-model="endPeriod">
         <option value="" disabled key="0">Кoнец работы</option>
         <option 
-          v-for="i in 25" 
+          v-for="i in (getHoursInDay() + 1)" 
           :value="`${i - 1}`"
           :key="i"
         >
@@ -91,9 +91,10 @@
       initDays () {
         let result = {};
         let lastDay = this.getLastDayInCurrentMonth();
+        let hoursInDay = this.getHoursInDay();
 
         for (let i = 1; i <= lastDay; i++) {
-          let periods = [...new Array(24)].map(() => ({isImportant: false, isRoutine: false}));
+          let periods = [...new Array(hoursInDay)].map(() => ({isImportant: false, isRoutine: false}));
           result[`${i}`] = periods;
         }
 
@@ -117,6 +118,11 @@
         return false;
       },
 
+      getHoursInDay () {
+        const HOURS_IN_DAY = 24;
+        return HOURS_IN_DAY;
+      },
+
       getKey (type) {
         return (type === '0') ? 'isImportant' : 'isRoutine';
       },
@@ -131,13 +137,14 @@
 
       saveChanges () {
         let isSelected = !!(this.startPeriod && this.endPeriod && this.typeWork);
-        
+
         if (isSelected && (+this.startPeriod < +this.endPeriod)) {
           this.days[this.day].forEach((period, idx) => {
             if ((idx >= this.startPeriod) && (idx < this.endPeriod)) {
               period[this.getKey(this.typeWork)] = true;
             }
           });
+
           this.typeWork = this.startPeriod = this.endPeriod = '';
         }
       }
