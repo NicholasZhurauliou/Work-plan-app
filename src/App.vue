@@ -14,7 +14,6 @@
           <div 
             v-for="i in 24"
             :key="i"
-            :type="typeWork"
             :class="{routine: getClass(i, '1')}"
           ></div>
         </div>
@@ -22,7 +21,6 @@
           <div 
             v-for="i in 24"
             :key="i"
-            :type="typeWork"
             :class="{important: getClass(i, '0')}"
           ></div>
         </div>
@@ -78,7 +76,7 @@
     data () {
       return { 
         day: null,
-        days: {},
+        days: this.initDays(),
         startPeriod: '',
         endPeriod: '',
         typeWork: '',
@@ -90,13 +88,16 @@
       };
     },
     methods: {
+      initDays() {
+        let result = {};
+        for (let i = 1; i <= 31; i++) {
+          let periods = [...new Array(24)].map(() => ({isImportant: false, isRoutine: false}));
+          result[`${i}`] = periods;
+        }
+        return result;
+      },
       changeDay (newDay) {
         this.day = newDay;
-
-        if (!(newDay in this.days)) {
-          let periods = [...new Array(24)].map(() => ({isImportant: false, isRoutine: false}));
-          this.days[newDay] = periods;
-        }
       },
       changeNumberToTimeStr (value) {
         value -= 1;
