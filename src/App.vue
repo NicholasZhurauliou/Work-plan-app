@@ -1,6 +1,33 @@
 <template>
-  <div id="app">
-    <DatePicker :day="day" @change-day="changeDay" />
+  <div id="app" class="app">
+    <div class="app__container">
+      <DatePicker :day="day" @change-day="changeDay" />
+      <div class="time-periods">
+        <div class="time-periods__header">
+          <div v-for="i in 25" :key="i">
+            <span>
+              {{changeNumberToTimeStr(i)}}
+            </span>
+          </div>
+        </div>
+        <div class="time-periods__body-routine">
+          <div 
+            v-for="i in 24"
+            :key="i"
+            :type="typeWork"
+            :class="{routine: getClass(i, '1')}"
+          ></div>
+        </div>
+        <div class="time-periods__body-important">
+          <div 
+            v-for="i in 24"
+            :key="i"
+            :type="typeWork"
+            :class="{important: getClass(i, '0')}"
+          ></div>
+        </div>
+      </div>
+    </div>
     <hr/>
     <template v-if="isDay">
       <p>{{day}}e</p>
@@ -75,19 +102,27 @@
         value -= 1;
         return `${value < 10 ? '0' : ''}${value}:00`;
       },
+      getClass (idx, type) {
+        if (this.day && (this.day in this.days)) {
+          let key = this.getKey(type);
+          return this.days[this.day][idx - 1][key];
+        }
+        return false;
+      },
       getKey (type) {
         return (type === '0') ? 'isImportant' : 'isRoutine';
       },
       saveChanges () {
         let isSelected = !!(this.startPeriod && this.endPeriod && this.typeWork);
-        console.log(isSelected);
-        if (isSelected && (this.startPeriod < this.endPeriod)) {
+        if (isSelected && (+this.startPeriod < +this.endPeriod)) {
           this.days[this.day].forEach((period, idx) => {
             if ((idx >= this.startPeriod) && (idx < this.endPeriod)) {
               period[this.getKey(this.typeWork)] = true;
             }
-          })
+          });
+          this.typeWork = this.startPeriod = this.endPeriod = '';
         }
+
       }
     },
     computed: {
@@ -99,7 +134,40 @@
 </script>
 
 <style lang="scss">
-  button {
-    margin-left: 10px;
+  .app {
+    &__container {
+      display: flex;
+    }
+    .time-periods {
+      margin-left: 50px;
+      &__header {
+        display: flex;
+        position: relative;
+        left: -10px;
+         div {
+           flex: 0 0 20px;
+            span {
+              writing-mode: vertical-rl;
+              transform: rotate(-180deg);
+            }
+         }
+      }
+      &__body-routine, &__body-important {
+        display: flex;
+          div {
+            flex: 0 0 20px;
+            height: 20px;
+          }
+      }
+      .important {
+        background-color: red;
+      }
+      .routine {
+        background-color: blue;
+      }
+    }
+    select {
+      margin-right: 20px;
+    }
   }
 </style>
