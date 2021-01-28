@@ -51,6 +51,7 @@
     data () {
       return { 
         day: null,
+        days: {},
         startPeriod: '',
         endPeriod: '',
         typeWork: '',
@@ -64,6 +65,11 @@
     methods: {
       changeDay (newDay) {
         this.day = newDay;
+
+        if (!(newDay in this.days)) {
+          let periods = [...new Array(24)].map(() => ({isImportant: false, isRoutine: false}));
+          this.days[newDay] = periods;
+        }
       },
       changeNumberToTimeStr (value) {
         value -= 1;
@@ -74,7 +80,7 @@
       }
     },
     computed: {
-      isDay: function() {
+      isDay: function () {
         return this.day !== null;
       }
     }
