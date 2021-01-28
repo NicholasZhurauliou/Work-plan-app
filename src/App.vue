@@ -4,6 +4,26 @@
     <hr/>
     <template v-if="isDay">
       <p>{{day}}e</p>
+      <select v-model="startPeriod">
+        <option value="" disabled key="0">Начало работы</option>
+        <option 
+          v-for="i in 25" 
+          :value="`${i - 1}`"
+          :key="i"
+        >
+          {{i}}
+        </option>
+      </select>
+      <select v-model="endPeriod">
+        <option value="" disabled key="0">Кoнец работы</option>
+        <option 
+          v-for="i in 25" 
+          :value="`${i - 1}`"
+          :key="i"
+        >
+          {{i}}
+        </option>
+      </select>
       <select v-model="typeWork">
         <option 
           v-for="type in typeWorks"
@@ -31,11 +51,13 @@
     data () {
       return { 
         day: null,
+        startPeriod: '',
+        endPeriod: '',
         typeWork: '',
         typeWorks: [
           { text: 'Вид работы', value: '' },
-          { text: 'Важная', value: 'important' },
-          { text: 'Обычная', value: 'routine' },
+          { text: 'Важная', value: '0' },
+          { text: 'Обычная', value: '1' },
         ]
       };
     },
