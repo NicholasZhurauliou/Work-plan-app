@@ -75,8 +75,19 @@
         value -= 1;
         return `${value < 10 ? '0' : ''}${value}:00`;
       },
+      getKey (type) {
+        return (type === '0') ? 'isImportant' : 'isRoutine';
+      },
       saveChanges () {
-
+        let isSelected = !!(this.startPeriod && this.endPeriod && this.typeWork);
+        console.log(isSelected);
+        if (isSelected && (this.startPeriod < this.endPeriod)) {
+          this.days[this.day].forEach((period, idx) => {
+            if ((idx >= this.startPeriod) && (idx < this.endPeriod)) {
+              period[this.getKey(this.typeWork)] = true;
+            }
+          })
+        }
       }
     },
     computed: {
