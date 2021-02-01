@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="app">
+    <day-picker :current-day="day" @change-current-day="changeDay"></day-picker>
     <div class="app__container">
       <date-picker :day="day" @change-day="changeDay"></date-picker>
       <div class="time-periods">
@@ -67,6 +68,7 @@
 
 <script>
   import DatePicker from "./components/DatePicker.vue";
+  import DayPicker from "./components/DayPicker.vue";
   import {HOURS_IN_DAY} from "./constants.js";
   import {getLastDayInCurrentMonth, changeNumberToTimeStr} from "./helpers.js";
   import "./App.scss";
@@ -74,7 +76,8 @@
   export default {
     name: "App",
     components: {
-      DatePicker
+      DatePicker,
+      DayPicker
     },
 
     beforeCreate () {
@@ -85,7 +88,7 @@
 
     data () {
       return { 
-        day: null,
+        day: 10,
         days: this.initDays(),
         startPeriod: '',
         endPeriod: '',
