@@ -67,7 +67,8 @@
 
 <script>
   import DatePicker from "./components/DatePicker.vue";
-  import {HOURS_IN_DAY, getLastDayInCurrentMonth, changeNumberToTimeStr} from "./constants.js";
+  import {HOURS_IN_DAY} from "./constants.js";
+  import {getLastDayInCurrentMonth, changeNumberToTimeStr} from "./helpers.js";
   import "./App.scss";
 
   export default {
