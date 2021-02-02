@@ -35,8 +35,8 @@
 </template>
 
 <script>
-    import {HOURS_IN_DAY, WORK_TYPES} from "../constants.js"
-    import {changeNumberToTimeStr} from "../helpers.js"
+    import {HOURS_IN_DAY, WORK_TYPES} from '../constants.js'
+    import {changeNumberToTimeStr} from '../helpers.js'
 
     export default {
         name: 'DayForm',
