@@ -21,6 +21,7 @@
         </tbody>
     </table>
 </template>
+
 <script>
 import {getQuentityWeekInCurrentMonth, getFirstDayInCurrentMonthIndex, getLastDayInCurrentMonth} from '../helpers.js'
 import {NAMES_DAYS_WEEK, DAYS_IN_WEEK} from '../constants.js'
@@ -58,7 +59,8 @@ import {NAMES_DAYS_WEEK, DAYS_IN_WEEK} from '../constants.js'
         }
     }
 </script>
-<style lang="scss">
+
+<style scoped lang="scss">
     .day-picker {
         th, td {
             width: 32px;
