@@ -19,5 +19,3 @@ export const getLastDayInCurrentMonth = () => {
 export const getQuentityWeekInCurrentMonth = () => {
     return Math.ceil((getLastDayInCurrentMonth() + getFirstDayInCurrentMonthIndex() - 1) / 7)
 }
-
-export const changeNumberToTimeStr = num => `${num < 10 ? '0' : ''}${num}:00`

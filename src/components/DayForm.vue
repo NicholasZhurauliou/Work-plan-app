@@ -7,7 +7,7 @@
               :value="i"
               :key="`start_${i}`"
             >
-              {{ formatNumber(i - 1) }}
+              {{ (i - 1) | format }}
             </option>
         </select>
         <select v-model="endTime">
@@ -17,7 +17,7 @@
               :value="i"
               :key="`end_${i}`"
             >
-              {{ formatNumber(i - 1) }}
+              {{ (i - 1) | format }}
             </option>
         </select>
         <select v-model="typeWork">
@@ -36,7 +36,6 @@
 
 <script>
     import {HOURS_IN_DAY, WORK_TYPES} from '../constants.js'
-    import {changeNumberToTimeStr} from '../helpers.js'
 
     export default {
         name: 'DayForm',
@@ -65,7 +64,6 @@
         beforeCreate() {
             this.hours = HOURS_IN_DAY
             this.types = WORK_TYPES
-            this.formatNumber = changeNumberToTimeStr
         }
     }
 </script>

@@ -3,7 +3,7 @@
         <div class="day-time__header">
           <div v-for="i in (hours + 1)" :key="`header_${i}`">
             <span>
-              {{ formatNumber(i - 1) }}
+              {{ (i - 1) | format }}
             </span>
           </div>
         </div>
@@ -26,7 +26,6 @@
 
 <script>
     import {HOURS_IN_DAY} from '../constants.js'
-    import {changeNumberToTimeStr} from '../helpers.js'
 
     export default {
         name: 'DayTime',
@@ -34,15 +33,14 @@
         methods: {
             getClass(idx, type) {
                 if (this.times.length) {
-                    let key = (type === 1) ? 'isImportant' : 'isRoutine'
-                    return this.times[idx - 1][key]
+                  let key = (type === 1) ? 'isImportant' : 'isRoutine'
+                  return this.times[idx - 1][key]
                 }
-                return false
+              return false
             }
         },
         beforeCreate() {
-            this.hours = HOURS_IN_DAY
-            this.formatNumber = changeNumberToTimeStr
+          this.hours = HOURS_IN_DAY
         }
     }
 </script>
