@@ -1,12 +1,17 @@
 <template>
   <date-picker 
-    :value="day"
-    @input="$emit('change-day', $event)" 
+    @input="changeDay" 
+    @open="openE"
+    @close="closeE"
+    type="time"
     class="datepicker"
-    value-type="format" 
-    format="D" 
-    inline
-    open
+    placeholder="Начало работы"
+    :editable="false"
+    :clearable="false"
+    format="HH:mm"
+    :open="open"
+    :value="value"
+    :shortcuts="[{text:'00:00', onClick:()=>{this.changeDay(0)}}, {text:'01:00', onClick:()=>{this.changeDay(1)}}]"
   ></date-picker>
 </template>
 
@@ -17,20 +22,30 @@
 
 export default {
   components: { DatePicker },
-  props: ['day']
+  data() {
+    return {
+      value: null,
+      open: false
+    }
+  },
+  methods: {
+    changeDay(hour) {
+      console.log(hour);
+      this.value = new Date(2021, 1, 3, hour)
+      this.open = false
+    },
+    openE() {
+      this.open = true
+    },
+    closeE() {
+      this.open = false
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-  .datepicker {
-    .mx-calendar-header {
+  .mx-datepicker-content {
       display: none;
     }
-    .not-current-month {
-      pointer-events: none;
-      div {
-        display: none;
-      }
-    }
-  }
 </style>
