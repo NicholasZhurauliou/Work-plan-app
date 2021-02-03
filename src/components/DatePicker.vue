@@ -1,8 +1,8 @@
 <template>
   <date-picker 
     @input="changeDay" 
-    @open="openE"
-    @close="closeE"
+    @open="onOpen"
+    @close="onClose"
     type="time"
     class="datepicker"
     placeholder="Начало работы"
@@ -30,14 +30,13 @@ export default {
   },
   methods: {
     changeDay(hour) {
-      console.log(hour);
       this.value = new Date(2021, 1, 3, hour)
       this.open = false
     },
-    openE() {
+    onOpen() {
       this.open = true
     },
-    closeE() {
+    onClose() {
       this.open = false
     }
   }
@@ -46,6 +45,6 @@ export default {
 
 <style lang="scss">
   .mx-datepicker-content {
-      display: none;
-    }
+    display: none;
+  }
 </style>
