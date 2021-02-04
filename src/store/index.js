@@ -9,7 +9,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setDay(state, newDay) {
-      state.day = newDay
+      state.day = newDay;
     }
   },
   actions: {},

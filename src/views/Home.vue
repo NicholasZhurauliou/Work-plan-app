@@ -1,6 +1,6 @@
 <template>
   <div>
-    <day-picker></day-picker>
+    <day-picker />
     <hr/>
     <p v-if="!!day">{{ day }}e</p>
     <p v-else>Выберите день в календаре</p>

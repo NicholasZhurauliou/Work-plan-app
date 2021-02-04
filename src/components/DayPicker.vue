@@ -60,7 +60,7 @@ export default {
       return (week - 1) * this.days + weekday;
     },
     onClick(newDay) {
-      this.$store.commit('setDay', newDay);
+      this.$store.commit("setDay", newDay);
     }
   },
   beforeCreate() {
