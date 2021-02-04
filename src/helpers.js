@@ -21,3 +21,15 @@ export const getQuentityWeekInCurrentMonth = () => {
     (getLastDayInCurrentMonth() + getFirstDayInCurrentMonthIndex() - 1) / 7
   );
 };
+
+export const initDays = hoursInDay => {
+  let days = {};
+  let lastDay = getLastDayInCurrentMonth();
+
+  for (let day = 1; day <= lastDay; day++) {
+    let hours = [...new Array(hoursInDay)].map(() => ({isImportant: false, isRoutine: false}));
+    days[day] = hours;
+  }
+
+  return days;
+};
