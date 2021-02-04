@@ -47,7 +47,9 @@ export default {
 
 <style scoped lang="scss">
 .day-time {
-  margin-left: 50px;
+  margin-left: 10px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
   &__header {
     display: flex;
     position: relative;

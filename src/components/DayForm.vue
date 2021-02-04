@@ -63,7 +63,7 @@ export default {
 <style scoped lang="scss">
 .day-form {
   select {
-    margin-right: 20px;
+    margin-right: 1rem;
   }
 }
 </style>
