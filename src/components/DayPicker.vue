@@ -2,7 +2,7 @@
   <table class="day-picker">
     <thead>
       <tr>
-        <th v-for="name in names" :key="name">{{ name }}</th>
+        <th v-for="name in namesDaysWeek" :key="name">{{ name }}</th>
       </tr>
     </thead>
     <tbody>
@@ -12,7 +12,7 @@
         class="day-picker__week"
       >
         <td
-          v-for="weekday in days"
+          v-for="weekday in daysInWeek"
           :key="`day_${week}_${weekday}`"
           :class="{
             'day-picker__day': isDay(week, weekday),
@@ -57,7 +57,7 @@ export default {
       return this.getCurrentIndex(week, weekday) - this.startIndex + 1;
     },
     getCurrentIndex(week, weekday) {
-      return (week - 1) * this.days + weekday;
+      return (week - 1) * this.daysInWeek + weekday;
     },
     onClick(newDay) {
       this.$store.commit("setDay", newDay);
@@ -67,8 +67,8 @@ export default {
     this.quentityWeek = getQuentityWeekInCurrentMonth();
     this.startIndex = getFirstDayInCurrentMonthIndex();
     this.endIndex = getLastDayInCurrentMonth() + this.startIndex - 1;
-    this.names = NAMES_DAYS_WEEK;
-    this.days = DAYS_IN_WEEK;
+    this.namesDaysWeek = NAMES_DAYS_WEEK;
+    this.daysInWeek = DAYS_IN_WEEK;
   }
 };
 </script>

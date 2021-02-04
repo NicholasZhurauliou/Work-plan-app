@@ -1,7 +1,7 @@
 <template>
   <div class="day-time">
     <div class="day-time__header">
-      <div v-for="i in hours + 1" :key="`header_${i}`">
+      <div v-for="i in hoursInDay + 1" :key="`header_${i}`">
         <span>
           {{ (i - 1) | format }}
         </span>
@@ -9,14 +9,14 @@
     </div>
     <div class="day-time__body-routine">
       <div
-        v-for="i in hours"
+        v-for="i in hoursInDay"
         :key="`routine_${i}`"
         :class="{ routine: getClass(i, 2) }"
       ></div>
     </div>
     <div class="day-time__body-important">
       <div
-        v-for="i in hours"
+        v-for="i in hoursInDay"
         :key="`important_${i}`"
         :class="{ important: getClass(i, 1) }"
       ></div>
@@ -29,18 +29,27 @@ import { HOURS_IN_DAY } from "../constants.js";
 
 export default {
   name: "DayTime",
-  props: ["times"],
+  computed: {
+    hours() {
+      let day = this.$store.state.day;
+
+      if (day) {
+        return this.$store.state.days[day];
+      }
+      return [];
+    }
+  },
   methods: {
     getClass(idx, type) {
-      if (this.times.length) {
+      if (this.hours.length) {
         let key = type === 1 ? "isImportant" : "isRoutine";
-        return this.times[idx - 1][key];
+        return this.hours[idx - 1][key];
       }
       return false;
     }
   },
   beforeCreate() {
-    this.hours = HOURS_IN_DAY;
+    this.hoursInDay = HOURS_IN_DAY;
   }
 };
 </script>

@@ -2,19 +2,19 @@
   <form class="day-form" @submit.prevent="onSubmit">
     <select v-model="startTime">
       <option value="0" disabled key="start_0">Начало работы</option>
-      <option v-for="i in hours + 1" :value="i" :key="`start_${i}`">
+      <option v-for="i in hoursInDay + 1" :value="i" :key="`start_${i}`">
         {{ (i - 1) | format }}
       </option>
     </select>
     <select v-model="endTime">
       <option value="0" disabled key="end_0">Кoнец работы</option>
-      <option v-for="i in hours + 1" :value="i" :key="`end_${i}`">
+      <option v-for="i in hoursInDay + 1" :value="i" :key="`end_${i}`">
         {{ (i - 1) | format }}
       </option>
     </select>
     <select v-model="typeWork">
       <option
-        v-for="{ value, text } in types"
+        v-for="{ value, text } in typesWork"
         :disabled="!value"
         :value="value"
         :key="`type_${value}`"
@@ -22,12 +22,12 @@
         {{ text }}
       </option>
     </select>
-    <input type="submit" value="Сохранить" />
+    <input type="submit" value="Сохранить" :disabled="isDisabled" />
   </form>
 </template>
 
 <script>
-import { HOURS_IN_DAY, WORK_TYPES } from "../constants.js";
+import { HOURS_IN_DAY, TYPES_WORK } from "../constants.js";
 
 export default {
   name: "DayForm",
@@ -38,6 +38,11 @@ export default {
       typeWork: 0
     };
   },
+  computed: {
+    isDisabled() {
+      return !(this.startTime && this.endTime && (this.startTime < this.endTime) && this.typeWork)
+    }
+  },
   methods: {
     onSubmit() {
       let period = {
@@ -46,7 +51,7 @@ export default {
         type: this.typeWork
       };
 
-      this.$emit("add-period", period);
+      this.$store.commit("updateDays", period);
 
       this.startTime = 0;
       this.endTime = 0;
@@ -54,8 +59,8 @@ export default {
     }
   },
   beforeCreate() {
-    this.hours = HOURS_IN_DAY;
-    this.types = WORK_TYPES;
+    this.hoursInDay = HOURS_IN_DAY;
+    this.typesWork = TYPES_WORK;
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <day-time :times="[]"></day-time>
+    <day-time />
     <day-form v-if="!!day" />
   </div>
 </template>
