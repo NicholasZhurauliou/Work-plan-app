@@ -1,18 +1,24 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <day-picker></day-picker>
+    <hr/>
+    <p v-if="!!day">{{ day }}e</p>
+    <p v-else>Выберите день в календаре</p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+  import DayPicker from "../components/DayPicker.vue";
 
-export default {
-  name: "Home",
-  components: {
-    HelloWorld
-  }
-};
+  export default {
+    name: "Home",
+    components: {
+      DayPicker
+    },
+    computed: {
+      day() {
+        return this.$store.state.day;
+      }
+    }
+  };
 </script>
