@@ -37,7 +37,11 @@ import { NAMES_DAYS_WEEK, DAYS_IN_WEEK } from "../constants.js";
 
 export default {
   name: "DayPicker",
-  props: ["currentDay"],
+  computed: {
+    currentDay() {
+      return this.$store.state.day;
+    }
+  },
   methods: {
     getContent(week, weekday) {
       if (this.isDay(week, weekday)) {
@@ -56,7 +60,7 @@ export default {
       return (week - 1) * this.days + weekday;
     },
     onClick(newDay) {
-      this.$emit("change-current-day", newDay);
+      this.$store.commit('setDay', newDay);
     }
   },
   beforeCreate() {

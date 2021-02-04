@@ -4,8 +4,14 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    day: null
+  },
+  mutations: {
+    setDay(state, newDay) {
+      state.day = newDay
+    }
+  },
   actions: {},
   modules: {}
 });
