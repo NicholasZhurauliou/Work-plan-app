@@ -8,11 +8,25 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     day: null,
-    days: initDays(HOURS_IN_DAY)
+    days: null
   },
   mutations: {
+    initialiseStore(state) {
+      if (localStorage.getItem('data')) {
+        try {
+          let data = JSON.parse(localStorage.getItem('data'));
+          state.day = data.day;
+          state.days = data.days;
+        } catch(error) {
+          localStorage.removeItem('data');
+        }
+      } else {
+        state.days = initDays(HOURS_IN_DAY);
+      }
+    },
     setDay(state, newDay) {
       state.day = newDay;
+      localStorage.setItem('data', JSON.stringify(state));
     },
     updateDays(state, {start, end, type}) {
       state.days[state.day].forEach((hour, idx) => {
@@ -22,7 +36,8 @@ export default new Vuex.Store({
           let key = (type === 1) ? 'isImportant' : 'isRoutine';
           hour[key] = true;
         }
-      })
+      });
+      localStorage.setItem('data', JSON.stringify(state));
     }
   },
   actions: {},
