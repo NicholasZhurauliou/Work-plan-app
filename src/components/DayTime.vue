@@ -31,9 +31,9 @@ export default {
   name: "DayTime",
   computed: {
     hours() {
-      let {day, days} = this.$store.state;
+      let { day, days } = this.$store.state;
 
-      if (day && day in days ) {
+      if (day && day in days) {
         return days[day];
       }
       return [];

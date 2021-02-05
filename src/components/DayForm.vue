@@ -40,7 +40,12 @@ export default {
   },
   computed: {
     isDisabled() {
-      return !(this.startTime && this.endTime && (this.startTime < this.endTime) && this.typeWork)
+      return !(
+        this.startTime &&
+        this.endTime &&
+        this.startTime < this.endTime &&
+        this.typeWork
+      );
     }
   },
   methods: {

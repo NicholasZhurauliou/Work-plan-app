@@ -27,7 +27,10 @@ export const initDays = hoursInDay => {
   let lastDay = getLastDayInCurrentMonth();
 
   for (let day = 1; day <= lastDay; day++) {
-    let hours = [...new Array(hoursInDay)].map(() => ({isImportant: false, isRoutine: false}));
+    let hours = [...new Array(hoursInDay)].map(() => ({
+      isImportant: false,
+      isRoutine: false
+    }));
     days[day] = hours;
   }
 

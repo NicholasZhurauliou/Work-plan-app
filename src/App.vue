@@ -8,25 +8,25 @@
 </template>
 
 <script>
-  import Navigation from "./components/Navigation.vue";
+import Navigation from "./components/Navigation.vue";
 
-  export default {
-    name: "App",
-    components: {
-      Navigation
-    }
+export default {
+  name: "App",
+  components: {
+    Navigation
   }
+};
 </script>
 
 <style scoped lang="scss">
-  .app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
+.app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
 
-    &__container {
-      padding: 16px;
-    }
+  &__container {
+    padding: 16px;
   }
+}
 </style>
