@@ -9,6 +9,7 @@
 
 <script>
 import DayPicker from "../components/DayPicker.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Home",
@@ -16,9 +17,7 @@ export default {
     DayPicker
   },
   computed: {
-    day() {
-      return this.$store.state.day;
-    }
+    ...mapGetters(["day"])
   }
 };
 </script>

@@ -8,12 +8,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Navigation",
   computed: {
-    day() {
-      return this.$store.state.day;
-    }
+    ...mapGetters(["day"])
   }
 };
 </script>

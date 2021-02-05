@@ -34,13 +34,12 @@ import {
   getLastDayInCurrentMonth
 } from "../helpers.js";
 import { NAMES_DAYS_WEEK, DAYS_IN_WEEK } from "../constants.js";
+import { mapGetters } from "vuex";
 
 export default {
   name: "DayPicker",
   computed: {
-    currentDay() {
-      return this.$store.state.day;
-    }
+    ...mapGetters({ currentDay: "day" })
   },
   methods: {
     getContent(week, weekday) {

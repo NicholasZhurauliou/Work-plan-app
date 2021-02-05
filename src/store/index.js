@@ -40,6 +40,9 @@ export default new Vuex.Store({
       localStorage.setItem("data", JSON.stringify(state));
     }
   },
+  getters: {
+    day: state => state.day
+  },
   actions: {},
   modules: {}
 });

@@ -7,6 +7,7 @@
 <script>
 import DayTime from "../components/DayTime.vue";
 import DayForm from "../components/DayForm.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -14,9 +15,7 @@ export default {
     DayForm
   },
   computed: {
-    day() {
-      return this.$store.state.day;
-    }
+    ...mapGetters(["day"])
   },
   watch: {
     $route(to, from) {
